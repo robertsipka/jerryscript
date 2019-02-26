@@ -22,6 +22,7 @@ import select
 import struct
 import sys
 from jerry_client_websocket import WebSocket
+from jerry_client_rawpacket import RawPacket
 
 # Expected debugger protocol version.
 JERRY_DEBUGGER_VERSION = 8
@@ -134,7 +135,8 @@ def arguments_parse():
                         help="set exception config, usage 1: [Enable] or 0: [Disable]")
     parser.add_argument("--client-source", action="store", default=[], type=str, nargs="+",
                         help="specify a javascript source file to execute")
-
+    parser.add_argument("--channel", choices=["websocket", "rawpacket"], default="websocket",
+                        help="specify the communication channel (default: %(default)s)")
     args = parser.parse_args()
 
     if args.verbose:
@@ -262,8 +264,8 @@ class DebuggerAction(object):
 
 
 class JerryDebugger(object):
-    # pylint: disable=too-many-instance-attributes,too-many-statements,too-many-public-methods,no-self-use
-    def __init__(self, address):
+    # pylint: disable=too-many-instance-attributes,too-many-statements,too-many-public-methods,no-self-use,redefined-variable-type
+    def __init__(self, address, channel):
 
         if ":" not in address:
             self.host = address
@@ -301,8 +303,14 @@ class JerryDebugger(object):
         self.non_interactive = False
         self.current_out = b""
         self.current_log = b""
+        self.channel = None
 
-        self.channel = WebSocket(address=(self.host, self.port))
+        if channel == "websocket":
+            self.channel = WebSocket(address=(self.host, self.port))
+        elif channel == "rawpacket":
+            self.channel = RawPacket(address=(self.host, self.port))
+        else:
+            raise Exception("Unsupported communication channel")
 
         config_size = 8
         # The server will send the configuration message after connection established
@@ -342,7 +350,8 @@ class JerryDebugger(object):
         logging.debug("Compressed pointer size: %d", self.cp_size)
 
     def __del__(self):
-        self.channel.close()
+        if self.channel is not None:
+            self.channel.close()
 
     def _exec_command(self, command_id):
         self.send_command(command_id)
