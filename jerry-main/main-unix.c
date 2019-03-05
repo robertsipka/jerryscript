@@ -424,10 +424,11 @@ init_engine (jerry_init_flag_t flags, /**< initialized flags for the engine */
              char *debug_channel, /**< enable the debugger init or not */
              uint16_t debug_port) /**< the debugger port */
 {
+  (void)debug_port;
   jerry_init (flags);
   if (strcmp (debug_channel, ""))
   {
-    bool tcp_created = jerryx_debugger_tcp_create (debug_port);
+    bool tcp_created = jerryx_debugger_serial_create ("/dev/ttyS0");
 
     if (!strcmp (debug_channel, "rawpacket"))
     {
