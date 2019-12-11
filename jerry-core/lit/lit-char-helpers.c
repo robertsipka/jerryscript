@@ -39,10 +39,10 @@ search_char_in_char_array (ecma_char_t c,               /**< code unit */
   int bottom = 0;
   int top = size_of_array - 1;
 
-  while (bottom <= top)
+  while (bottom <= top && c >= array[bottom] && c <= array[top])
   {
-    int middle = (bottom + top) / 2;
-    ecma_char_t current = array[middle];
+    int pos = bottom + (((top - bottom) / (array[top] - array[bottom])) * (c - array[bottom]));
+    ecma_char_t current = array[pos];
 
     if (current == c)
     {
@@ -51,11 +51,11 @@ search_char_in_char_array (ecma_char_t c,               /**< code unit */
 
     if (c < current)
     {
-      top = middle - 1;
+      top = pos - 1;
     }
     else
     {
-      bottom = middle + 1;
+      bottom = pos + 1;
     }
   }
 
@@ -81,21 +81,21 @@ search_char_in_interval_array (ecma_char_t c,               /**< code unit */
 
   while (bottom <= top)
   {
-    int middle = (bottom + top) / 2;
-    ecma_char_t current_sp = array_sp[middle];
+    int pos = bottom + (((top - bottom) / (array_sp[top] - array_sp[bottom])) * (c - array_sp[bottom]));
+    ecma_char_t current_sp = array_sp[pos];
 
-    if (current_sp <= c && c <= current_sp + lengths[middle])
+    if (current_sp <= c && c <= current_sp + lengths[pos])
     {
       return true;
     }
 
     if (c > current_sp)
     {
-      bottom = middle + 1;
+      bottom = pos + 1;
     }
     else
     {
-      top = middle - 1;
+      top = pos - 1;
     }
   }
 
