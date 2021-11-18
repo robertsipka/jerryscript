@@ -1277,6 +1277,32 @@ scanner_scan_primary_expression_end (parser_context_t *context_p, /**< context *
 } /* scanner_scan_primary_expression_end */
 
 /**
+ * is a possible single statement context
+ *
+ * @return bool to statement which can form single statement context
+ */
+static bool
+is_single_statement_context (scan_stack_modes_t stack_top) /**< current stack top */
+{
+  switch (stack_top) {
+    case SCAN_STACK_BLOCK_STATEMENT:
+    case SCAN_STACK_IF_STATEMENT:
+    case SCAN_STACK_WITH_STATEMENT:
+    case SCAN_STACK_WHILE_STATEMENT:
+    case SCAN_STACK_DO_STATEMENT:
+    case SCAN_STACK_FOR_VAR_START:
+#if JERRY_ESNEXT
+    case SCAN_STACK_FOR_LET_START:
+    case SCAN_STACK_FOR_CONST_START:
+#endif /* JERRY_ESNEXT */
+    case SCAN_STACK_FOR_START:
+      return true;
+    default:
+      return false;
+  }
+}
+
+/**
  * Scan statements.
  *
  * @return SCAN_NEXT_TOKEN to read the next token, or SCAN_KEEP_TOKEN to do nothing
@@ -1373,6 +1399,8 @@ scanner_scan_statement (parser_context_t *context_p, /**< context */
       {
         scanner_raise_error (context_p);
       }
+
+      parser_stack_push_uint8 (context_p, SCAN_STACK_WHILE_STATEMENT);
 
       scanner_context_p->mode = SCAN_MODE_PRIMARY_EXPRESSION;
 
@@ -1994,8 +2022,9 @@ scanner_scan_statement (parser_context_t *context_p, /**< context */
 
       type = (lexer_token_type_t) context_p->token.type;
 
-      if (type == LEXER_LEFT_SQUARE || type == LEXER_LEFT_BRACE
-          || (type == LEXER_LITERAL && context_p->token.lit_location.type == LEXER_IDENT_LITERAL))
+      if (type == LEXER_LEFT_SQUARE || (type == LEXER_LEFT_BRACE && !(context_p->token.flags & LEXER_WAS_NEWLINE))
+          || (type == LEXER_LITERAL && context_p->token.lit_location.type == LEXER_IDENT_LITERAL && 
+          (!is_single_statement_context(stack_top) || !(context_p->token.flags & LEXER_WAS_NEWLINE))))
       {
         scanner_context_p->mode = SCAN_MODE_VAR_STATEMENT;
         parser_stack_push_uint8 (context_p, SCAN_STACK_LET);
@@ -2203,6 +2232,9 @@ scanner_scan_statement_end (parser_context_t *context_p, /**< context */
         lexer_next_token (context_p);
         continue;
       }
+      case SCAN_STACK_WHILE_STATEMENT:
+        parser_stack_pop_uint8 (context_p);
+        return SCAN_KEEP_TOKEN;
       case SCAN_STACK_IF_STATEMENT:
       {
         parser_stack_pop_uint8 (context_p);

@@ -70,6 +70,7 @@ typedef enum
   SCAN_STACK_WITH_EXPRESSION, /**< expression part of "with" statements */
   SCAN_STACK_DO_STATEMENT, /**< statement part of "do" statements */
   SCAN_STACK_DO_EXPRESSION, /**< expression part of "do" statements */
+  SCAN_STACK_WHILE_STATEMENT, /**< statement part of "while" statement */
   SCAN_STACK_WHILE_EXPRESSION, /**< expression part of "while" iterator */
   SCAN_STACK_PAREN_EXPRESSION, /**< expression in brackets */
   SCAN_STACK_STATEMENT_WITH_EXPR, /**< statement which starts with expression enclosed in brackets */

@@ -332,7 +332,6 @@
   <test id="language/statements/for-in/cptn-expr-skip-itr.js"><reason></reason></test>
   <test id="language/statements/for-in/cptn-expr-zero-itr.js"><reason></reason></test>
   <test id="language/statements/for-in/head-lhs-let.js"><reason></reason></test>
-  <test id="language/statements/for-in/let-block-with-newline.js"><reason></reason></test>
   <test id="language/statements/for-in/let-identifier-with-newline.js"><reason></reason></test>
   <test id="language/statements/for-in/scope-body-lex-open.js"><reason></reason></test>
   <test id="language/statements/for-in/scope-head-lex-close.js"><reason></reason></test>
@@ -343,7 +342,6 @@
   <test id="language/statements/for-of/cptn-expr-abrupt-empty.js"><reason></reason></test>
   <test id="language/statements/for-of/cptn-expr-itr.js"><reason></reason></test>
   <test id="language/statements/for-of/cptn-expr-no-itr.js"><reason></reason></test>
-  <test id="language/statements/for-of/let-block-with-newline.js"><reason></reason></test>
   <test id="language/statements/for-of/let-identifier-with-newline.js"><reason></reason></test>
   <test id="language/statements/for-of/scope-body-lex-open.js"><reason></reason></test>
   <test id="language/statements/for-of/scope-head-lex-close.js"><reason></reason></test>
@@ -353,7 +351,6 @@
   <test id="language/statements/for/cptn-expr-expr-no-iter.js"><reason></reason></test>
   <test id="language/statements/for/head-init-expr-check-empty-inc-empty-completion.js"><reason></reason></test>
   <test id="language/statements/for/head-init-var-check-empty-inc-empty-completion.js"><reason></reason></test>
-  <test id="language/statements/for/let-block-with-newline.js"><reason></reason></test>
   <test id="language/statements/for/let-identifier-with-newline.js"><reason></reason></test>
   <test id="language/statements/for/scope-body-lex-open.js"><reason></reason></test>
   <test id="language/statements/function/eval-var-scope-syntax-err.js"><reason></reason></test>
@@ -365,10 +362,6 @@
   <test id="language/statements/if/cptn-no-else-false.js"><reason></reason></test>
   <test id="language/statements/if/cptn-no-else-true-abrupt-empty.js"><reason></reason></test>
   <test id="language/statements/if/cptn-no-else-true-nrml.js"><reason></reason></test>
-  <test id="language/statements/if/let-block-with-newline.js"><reason></reason></test>
-  <test id="language/statements/if/let-identifier-with-newline.js"><reason></reason></test>
-  <test id="language/statements/labeled/let-block-with-newline.js"><reason></reason></test>
-  <test id="language/statements/labeled/let-identifier-with-newline.js"><reason></reason></test>
   <test id="language/statements/let/syntax/let-newline-yield-in-generator-function.js"><reason></reason></test>
   <test id="language/statements/switch/cptn-a-abrupt-empty.js"><reason></reason></test>
   <test id="language/statements/switch/cptn-abrupt-empty.js"><reason></reason></test>
@@ -406,12 +399,8 @@
   <test id="language/statements/while/cptn-abrupt-empty.js"><reason></reason></test>
   <test id="language/statements/while/cptn-iter.js"><reason></reason></test>
   <test id="language/statements/while/cptn-no-iter.js"><reason></reason></test>
-  <test id="language/statements/while/let-block-with-newline.js"><reason></reason></test>
-  <test id="language/statements/while/let-identifier-with-newline.js"><reason></reason></test>
   <test id="language/statements/with/cptn-abrupt-empty.js"><reason></reason></test>
   <test id="language/statements/with/cptn-nrml.js"><reason></reason></test>
-  <test id="language/statements/with/let-block-with-newline.js"><reason></reason></test>
-  <test id="language/statements/with/let-identifier-with-newline.js"><reason></reason></test>
   <!-- END - Uncategorized failing tests -->
 
   <!-- AnnexB - Additional ECMAScript Features for Web Browsers
@@ -7450,7 +7439,6 @@
   <test id="language/statements/class/elements/same-line-async-gen-static-private-methods-with-fields.js"><reason></reason></test>
   <test id="language/statements/class/elements/same-line-async-gen-static-private-methods.js"><reason></reason></test>
   <test id="language/statements/class/elements/syntax/valid/grammar-static-private-async-gen-meth-prototype.js"><reason></reason></test>
-  <test id="language/statements/for-await-of/let-block-with-newline.js"><reason></reason></test>
   <test id="language/statements/for-await-of/let-identifier-with-newline.js"><reason></reason></test>
   <test id="language/statements/switch/syntax/redeclaration/async-function-name-redeclaration-attempt-with-async-generator.js"><reason></reason></test>
   <test id="language/statements/switch/syntax/redeclaration/async-generator-name-redeclaration-attempt-with-async-function.js"><reason></reason></test>
